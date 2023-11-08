@@ -16,7 +16,6 @@ class NoteService
     {
         $note = Note::findOrNew($id);
         $note->fill($data);
-        $note->user_id = Auth::user()->id;
         $note->save();
 
         return $note;

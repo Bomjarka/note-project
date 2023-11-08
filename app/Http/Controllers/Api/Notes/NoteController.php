@@ -52,7 +52,8 @@ class NoteController extends Controller
      */
     public function storeOrUpdate(NoteRequest $request, NoteService $noteService, int $id = null): JsonResponse
     {
-        $note = $noteService->createOrUpdate($request->all(), $id);
+        $data = array_merge(['user_id' => Auth::user()->id], $request->all());
+        $note = $noteService->createOrUpdate($data, $id);
 
         return response()->json($note);
     }
