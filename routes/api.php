@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Notes\NoteController;
+use App\Http\Controllers\Admin\Api\Notes\NoteController as AdminNoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,14 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
         Route::post('/', [NoteController::class, 'storeOrUpdate'])->name('api.v1.note.store');
         Route::put('/{note}', [NoteController::class, 'storeOrUpdate'])->name('api.v1.note.update');
         Route::delete('/{note}', [NoteController::class, 'destroy'])->name('api.v1.note.destroy');
+    });
+    Route::group(['middleware' => ['auth:api'], 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
+        Route::group(['middleware' => ['admin'], 'namespace' => 'Admin', 'prefix' => 'note'], function () {
+            Route::get('/', [AdminNoteController::class, 'list'])->name('api.v1.admin.note.list');
+            Route::get('/{note}', [AdminNoteController::class, 'show'])->name('api.v1.admin.note.show');
+            Route::post('/', [AdminNoteController::class, 'storeOrUpdate'])->name('api.v1.admin.note.store');
+            Route::put('/{note}', [AdminNoteController::class, 'storeOrUpdate'])->name('api.v1.admin.note.update');
+            Route::delete('/{note}', [AdminNoteController::class, 'destroy'])->name('api.v1.admin.note.destroy');
+        });
     });
 });
