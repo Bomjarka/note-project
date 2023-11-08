@@ -33,4 +33,7 @@ down: ## Отключение контейнеров
 shell: ## Запуск bash в контейнере
 		docker-compose exec $(APP_CONTAINER_NAME) bash
 
+unit: ## Запуск unit тестов
+		docker-compose exec $(APP_CONTAINER_NAME) composer unit
+
 
