@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Notes;
+namespace App\Http\Controllers\Admin\Api\Notes;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Note\NoteRequest;
@@ -16,7 +16,7 @@ class NoteController extends Controller
      */
     public function list(): JsonResponse
     {
-        return response()->json(Auth::user()->notes);
+        return response()->json(Note::all());
     }
 
     /**
@@ -25,13 +25,14 @@ class NoteController extends Controller
      */
     public function show(int $id): JsonResponse|Note
     {
-        $userNote =  Auth::user()->notes()->whereId($id)->first();
-        if (!$userNote) {
+        $note = Note::find($id);
+        if (!$note) {
             return response()->json([
-                'message' => 'You cant view this note',
-            ], 403);
+                'message' => 'Note not exists',
+            ], 404);
         }
-        return response()->json(['note' => $userNote]);
+
+        return response()->json(['note' => $note]);
     }
 
     /**
@@ -45,9 +46,7 @@ class NoteController extends Controller
         $note = Note::findOrNew($id);
         $data = array_merge(['user_id' => Auth::user()->id], $request->all());
         if (isset($note->id) && $note->user_id !== Auth::user()->id) {
-            return response()->json([
-                'message' => 'You cannot update this note',
-            ], 403);
+            $data['user_id'] = $note->user_id;
         }
         $note = $noteService->createOrUpdate($note, $data);
 
@@ -61,16 +60,11 @@ class NoteController extends Controller
      */
     public function destroy(int $id, NoteService $noteService): JsonResponse
     {
-       if ($note = Note::find($id)) {
-           if ($note->user_id !== Auth::user()->id) {
-               return response()->json([
-                   'message' => 'You cannot destroy this note',
-               ], 403);
-           }
-           $noteService->destroy($note);
+        if ($note = Note::find($id)) {
+            $noteService->destroy($note);
 
-           return response()->json($note);
-       }
+            return response()->json($note);
+        }
 
         return response()->json([
             'message' => 'Note not exists',

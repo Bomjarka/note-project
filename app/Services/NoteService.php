@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Auth;
 class NoteService
 {
     /**
+     * @param Note $note
      * @param array $data
-     * @param int|null $id
      * @return Note
      */
-    public function createOrUpdate(array $data, int $id = null): Note
+    public function createOrUpdate(Note $note, array $data): Note
     {
-        $note = Note::findOrNew($id);
         $note->fill($data);
         $note->save();
 
@@ -29,5 +28,4 @@ class NoteService
     {
         $note->delete();
     }
-
 }

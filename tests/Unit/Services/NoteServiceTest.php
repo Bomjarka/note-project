@@ -38,7 +38,7 @@ class NoteServiceTest extends TestCase
             ->exists();
         $this->assertFalse($noteExists);
 
-        $note = $this->noteService->createOrUpdate($data);
+        $note = $this->noteService->createOrUpdate(new Note(), $data);
         $this->assertModelExists($note);
     }
 
@@ -63,7 +63,7 @@ class NoteServiceTest extends TestCase
             'content' => 'New test content',
             'user_id' => $this->user->id,
         ];
-        $updatedNote = $this->noteService->createOrUpdate($dataToUpdate, $note->id);
+        $updatedNote = $this->noteService->createOrUpdate($note, $dataToUpdate);
 
         $this->assertEquals($note->id, $updatedNote->id);
         $this->assertEquals($dataToUpdate['topic'], $updatedNote->topic);
