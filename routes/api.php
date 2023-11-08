@@ -30,6 +30,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
         Route::get('/', [NoteController::class, 'list'])->name('api.v1.note.list');
         Route::get('/{note}', [NoteController::class, 'show'])->name('api.v1.note.show');
         Route::post('/', [NoteController::class, 'storeOrUpdate'])->name('api.v1.note.store');
+        Route::put('/{note}', [NoteController::class, 'storeOrUpdate'])->name('api.v1.note.update');
         Route::delete('/{note}', [NoteController::class, 'destroy'])->name('api.v1.note.destroy');
     });
 });
