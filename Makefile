@@ -30,10 +30,10 @@ up: ## Запуск контейнеров в фоновом режиме
 down: ## Отключение контейнеров
 		$(shell docker-compose down)
 
-shell: ## Запуск bash в контейнере
+bash: ## Запуск bash в контейнере
 		docker-compose exec $(APP_CONTAINER_NAME) bash
 
-unit: ## Запуск unit тестов
-		docker-compose exec $(APP_CONTAINER_NAME) composer unit
+unit-tests: ## Запуск unit тестов
+		docker-compose exec $(APP_CONTAINER_NAME) composer phpunit
 
 
