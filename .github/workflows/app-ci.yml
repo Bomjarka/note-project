@@ -10,7 +10,7 @@ jobs:
   build-app:
     runs-on: ubuntu-latest
     env:
-      CC_TEST_REPORTER_ID: 1280297996c421f4e9bd5fb7e2beed98eb396d976ea42ec35bd5e35e2b8db61f
+      CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
     steps:
       - uses: actions/checkout@v2
       - name: Copy .env.example to .env
