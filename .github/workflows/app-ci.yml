@@ -9,6 +9,8 @@ on:
 jobs:
   build-app:
     runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: 1280297996c421f4e9bd5fb7e2beed98eb396d976ea42ec35bd5e35e2b8db61f
     steps:
       - uses: actions/checkout@v2
       - name: Copy .env.example to .env
@@ -31,6 +33,9 @@ jobs:
         run: docker-compose exec -T backend bash -lc 'php artisan db:seed'
       - name: Artisan Optimize
         run: docker-compose exec -T backend bash -lc 'php artisan optimize'
+      - name: Code Climate setup
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter
+                    ./cc-test-reporter before-build
       - name: Unit tests
         run: docker-compose exec -T backend bash -lc 'composer unit'
-
