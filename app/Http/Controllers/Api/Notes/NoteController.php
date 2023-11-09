@@ -31,7 +31,7 @@ class NoteController extends Controller
                 'message' => 'You cant view this note',
             ], 403);
         }
-        return response()->json(['note' => $userNote]);
+        return response()->json($userNote);
     }
 
     /**
