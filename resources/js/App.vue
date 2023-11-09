@@ -3,7 +3,7 @@
         <div class="container">
             <router-link class="navbar-brand" to="/">{{ app_name }}</router-link>
             <router-link v-if="isAuthenticated() && !isAdmin()" class="nav-link" to="/notes">Notes</router-link>
-            <router-link v-if="isAuthenticated() && isAdmin()" class="nav-link" to="/admin/notes">Notes</router-link>
+            <router-link v-if="isAuthenticated() && isAdmin()" class="nav-link" to="/admin/notes">Notes for admin</router-link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="">
@@ -75,7 +75,7 @@ export default {
             return this.api_token !== null && this.user_authenticated !== false;
         },
         isAdmin() {
-            return Boolean(this.is_admin);
+            return this.is_admin === 'true';
         },
         logout() {
             const headers = {

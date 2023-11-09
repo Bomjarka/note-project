@@ -63,11 +63,19 @@ router.beforeEach((to, from, next) => {
         return next({path: '/'})
     }
 
+    if (['/admin/notes'].includes(to.path) && isAuthenticated() && !isAdmin()) {
+        return next({path: '/notes'})
+    }
+
     return next()
 })
 
 function isAuthenticated() {
     return Boolean(localStorage.getItem('user_authenticated'))
+}
+
+function isAdmin() {
+    return localStorage.getItem('is_admin') === 'true';
 }
 
 export default router;

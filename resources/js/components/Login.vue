@@ -77,7 +77,11 @@ export default {
                     this.data = response.data
                     localStorage.setItem('TOKEN_FROM_API', 'Bearer ' + this.data.token);
                     localStorage.setItem('user_id', this.data.user.id);
-                    localStorage.setItem('is_admin', this.data.is_admin);
+                    if (Boolean(this.data.is_admin) === true) {
+                        localStorage.setItem('is_admin', 'true');
+                    } else {
+                        localStorage.setItem('is_admin', 'false')
+                    }
                     localStorage.setItem('user_authenticated', 'true');
                     window.location.reload();
                 }

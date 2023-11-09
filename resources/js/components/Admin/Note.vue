@@ -39,7 +39,6 @@ export default {
             }
         ).then(response => {
             this.note = response.data;
-            console.log(this.note);
         })
             .catch((error) => {
                 console.log(error);
