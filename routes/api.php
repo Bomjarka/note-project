@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\Notes\NoteController as AdminNoteController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Notes\NoteController;
-use App\Http\Controllers\Admin\Api\Notes\NoteController as AdminNoteController;
+use App\Http\Controllers\Api\Notes\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,9 +24,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Api', 'prefix' => 'v1'], function () {
     Route::group(['namespace' => 'Auth'], function () {
-        Route::post('register', [AuthController::class, 'register']);
-        Route::post('login', [AuthController::class, 'login']);
-        Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+        Route::post('register', [AuthController::class, 'register'])->name('api.v1.register');
+        Route::post('login', [AuthController::class, 'login'])->name('api.v1.login');
+        Route::post('logout', [AuthController::class, 'logout'])
+            ->middleware('auth:api')
+            ->name('api.v1.logout');
+    });
+    Route::group(['middleware' => ['auth:api'], 'namespace' => 'User', 'prefix' => 'user'], function () {
+        Route::get('/{user}', [UserController::class, 'show'])->name('api.v1.user.show');
     });
     Route::group(['middleware' => ['auth:api'], 'namespace' => 'Notes', 'prefix' => 'note'], function () {
         Route::get('/', [NoteController::class, 'list'])->name('api.v1.note.list');

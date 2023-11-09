@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\RegisterFormRequest;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,33 +31,40 @@ class AuthController extends Controller
 
         if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'You cannot sign with those credentials',
+                'message' => 'You cannot sign with those credentials, check email or password',
                 'errors' => 'Unauthorised'
             ], 401);
         }
 
         $authedUser = User::find(Auth::user()->id);
-        $token = $authedUser->createToken(config('app.name'));
+        $token = $authedUser->token() ?? $authedUser->createToken(config('app.name'));
+
         $token->token->expires_at = $request->remember_me ?
             Carbon::now()->addMonth() :
             Carbon::now()->addDay();
 
         $token->token->save();
 
+
         return response()->json([
             'user' => $authedUser,
+            'is_admin' => $authedUser->hasRole(Role::ROLE_ADMIN),
             'token_type' => 'Bearer',
             'token' => $token->accessToken,
-            'expires_at' => Carbon::parse($token->token->expires_at)->toDateTimeString()
+            'expires_at' => Carbon::parse($token->token->expires_at)->toDateTimeString(),
         ]);
     }
 
-    public function logout(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->token()->revoke();
 
         return response()->json([
             'message' => 'You are successfully logged out',
-        ]);
+        ], 204);
     }
 }
