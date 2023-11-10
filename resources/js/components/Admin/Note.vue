@@ -32,12 +32,13 @@ export default {
         }
     },
     created() {
-        axios.get('/api/v1/note/' + this.$route.params.id, {
+        axios.get('/api/v1/admin/note/' + this.$route.params.id, {
                 headers: {
                     'Authorization': this.api_token,
                 }
             }
         ).then(response => {
+            console.log(response.data);
             this.note = response.data;
         })
             .catch((error) => {

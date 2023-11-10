@@ -1,11 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
-import Note from "./components/User/Note.vue";
+import UserNote from "./components/User/Note.vue";
 import UserNotes from "./components/User/Notes.vue";
 import Error404 from "./components/Error404.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
 import AdminNotes from "./components/Admin/Notes.vue";
+import AdminNote from "./components/Admin/Note.vue";
 import path from "path";
 
 const routes = [
@@ -33,14 +34,19 @@ const routes = [
         component: UserNotes,
     },
     {
+        path: "/note/:id",
+        name: "Note",
+        component: UserNote,
+    },
+    {
         path: "/admin/notes",
         name: "AdminNotes",
         component: AdminNotes,
     },
     {
-        path: "/note/:id",
+        path: "/admin/note/:id",
         name: "Note",
-        component: Note,
+        component: AdminNote,
     },
     {
         path: '/:pathMatch(.*)*',

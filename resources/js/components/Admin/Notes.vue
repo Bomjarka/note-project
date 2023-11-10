@@ -4,17 +4,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h5>ToDo Lists</h5>
-                        <!--                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"-->
-                        <!--                                data-bs-target="#createListModal">Create New Note-->
-                        <!--                        </button>-->
+                        <h5>Note List of all users</h5>
                     </div>
                     <div class="card-body">
                         <h2 v-if="isNotesEmpty()">No notes</h2>
                         <div class="card-deck">
                             <div v-for="note in notes" class="card my-2">
                                 <div class="card-header">
-                                    <a :href="`/note/${note.id}`"><h5
+                                    <a :href="`/admin/note/${note.id}`"><h5
                                         class="card-title">{{ note.topic }}</h5></a>
                                 </div>
                                 <div class="card-body">
