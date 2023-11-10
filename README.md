@@ -1,16 +1,51 @@
 ### Instaliation
-
 1. clone project
 2. check env.example settings and update settings if needed
    * DOCKER_NGINX_PORT - set free port for listening server
    * DOCKER_POSTGRES_PORT - set database external port
+### Auto
 3. open terminal and run: 
     ```bash
     make install
     ```
-4. open http://note-app.local:81/ or http://localhost:DOCKER_NGINX_PORT
-5. All created users and admin have password = password 
-6. You can check API Documentation [here](http://note-app.local:81/swagger)
+### Manual
+3. If something went wrong on auto installation then
+    * open terminal and run
+        ```bash
+        make down (or docker-compose down)
+        ```
+    * open terminal and run
+        ```bash
+        make prepare-env
+        ```
+    * open terminal and run
+        ```bash
+        make buld-clean
+        ```
+    * open terminal and run
+        ```bash
+        make up
+        ```
+    * open terminal and run
+    *  ```bash
+        docker-compose exec backend composer install
+        ```
+    *  ```bash
+        docker-compose exec backend php artisan key:generate
+        ```
+    *  ```bash
+        docker-compose exec backend composer php artisan migrate:fresh
+        ```
+    *  ```bash
+        docker-compose exec backend composer php artisan db:seed
+        ```
+    *  ```bash
+        docker-compose exec backend composer php artisan optimize
+        ```
+     
+5. open http://note-app.local:81/ or http://localhost:DOCKER_NGINX_PORT
+6. All created users and admin have password = password 
+7. You can check API Documentation [here](http://note-app.local:81/swagger)
 
 ### Checklist
 - [x] Язык: php ^8.1
