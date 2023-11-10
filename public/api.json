@@ -1,0 +1,1457 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Note project",
+        "description": "API Documentaion",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "tags": [
+        {
+            "name": "auth",
+            "description": "Everything about auth"
+        },
+        {
+            "name": "note",
+            "description": "user notes"
+        },
+        {
+            "name": "admin",
+            "description": "admin api"
+        },
+        {
+            "name": "user",
+            "description": "user methods"
+        }
+    ],
+    "paths": {
+        "/api/v1/register": {
+            "parameters": [],
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "",
+                "operationId": "post-api-v1-register",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You were successfully registered. Use your email and password to sign in."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Register new user via name, email, password",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name",
+                        "description": "user name",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "email",
+                        "description": "user email",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "password",
+                        "description": "password",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "password_confirmation",
+                        "description": "password_confirmation",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "",
+                "operationId": "post-api-v1-login",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "email_verified_at": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                },
+                                                "roles": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {}
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "is_admin": {
+                                            "type": "boolean"
+                                        },
+                                        "token_type": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "expires_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "user": {
+                                                "id": 42,
+                                                "name": "Tressa Cremin MD",
+                                                "email": "ykihn@example.net",
+                                                "email_verified_at": "2023-11-08T04:12:19.000000Z",
+                                                "created_at": "2023-11-08T04:12:19.000000Z",
+                                                "updated_at": "2023-11-08T04:12:19.000000Z",
+                                                "roles": []
+                                            },
+                                            "is_admin": false,
+                                            "token_type": "Bearer",
+                                            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYzg3OTY1YTUwYTI3ODA2MjNlNWQxNGU3YjYxMzM5ZTZlODkyYWMwYmI2ZmExMjJjMmVmZDI1YzUxZDE5NWVhY2E5MGJlMTA0ZTU3ZTM5MjAiLCJpYXQiOjE2OTk1ODgwMDIuMzk3NDczLCJuYmYiOjE2OTk1ODgwMDIuMzk3NDc4LCJleHAiOjE3MzEyMTA0MDIuMzc5ODU4LCJzdWIiOiI0MiIsInNjb3BlcyI6W119.mgnXL6Bi3oWPQWcNA2dCJswPLwP7JGspTsx-FOC38nN4XtNMpYeVbpX-y0X1N9FslGG8mbL3nrl0NSUBzHtpQtFrKGF6QQT4fQuSO1c91mtHVJEkWSxKuQrDGm5JMAqVYN-T9O9G--LZ-n2GXZF18bQEPCsylfZ-BJP-Qmh_uZcvL1IqV7loDmiG2wLAFwgj8Kmxkw89370tPzRJZY1c7eeoAE8pxvrIgkLTOFZJctmcgXLoCLtZ2YuKBZ6mUNlOBhUL6ChCHSkBS_rz9knkohbicEbE06KeojgSBAAs9ZDfqkroj95CU-LK5bsZRSZM3LOmcctvw3-oeq7pM7LLYw2x5AXUCL-y1R-rM06LHHxoH929qr-mcmcjzFYt5fNbEgCVQy0N4kDPE_avHBPGQTTeldE1RfVtMhVldjQMI-zZWlXtrXduLInjVkZ6fkoRRUZ7_1qX4qQuqqhXF4btVOAnrF85W0-Z50_oUobNkgbnwTcnVOVu4EKWPIeDLG0ulAdLsQO8zBOiY3Pp-Yo209CSBYPd2mhaIAFGUw-lqPqtznKWisVvVjXxzBEhSdYbm2NbCu2y2--QaxPadj_vjokk64o7Tus1IWQSDY9r2QPa3ZdFFamvlOPlj0BoZR7XbdnpJpDJFyxqEBDgV04lfa3QxW9KilakdlHZoLtF_d8",
+                                            "expires_at": "2023-11-11 03:46:42"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You cannot sign with those credentials, check email or password",
+                                            "errors": "Unauthorised"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Auth user via email and password, generate Bearer token and return it",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "email",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "password",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "",
+                "operationId": "post-api-v1-logout",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You are successfully logged out"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Logout user and revoke token",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/note/": {
+            "get": {
+                "summary": "",
+                "tags": [
+                    "note"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "user_id": {
+                                                "type": "integer"
+                                            },
+                                            "topic": {
+                                                "type": "string"
+                                            },
+                                            "content": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": [
+                                            {
+                                                "id": 58,
+                                                "user_id": 42,
+                                                "topic": "sgasg",
+                                                "content": "sasg",
+                                                "created_at": "2023-11-08T10:55:39.000000Z",
+                                                "updated_at": "2023-11-08T10:55:39.000000Z"
+                                            },
+                                            {
+                                                "id": 59,
+                                                "user_id": 42,
+                                                "topic": "gas",
+                                                "content": "gasg",
+                                                "created_at": "2023-11-08T13:08:02.000000Z",
+                                                "updated_at": "2023-11-08T13:08:02.000000Z"
+                                            },
+                                            {
+                                                "id": 60,
+                                                "user_id": 42,
+                                                "topic": "lk;'l",
+                                                "content": ";'l;",
+                                                "created_at": "2023-11-08T13:19:01.000000Z",
+                                                "updated_at": "2023-11-08T13:19:01.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "get-api-v1-note",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ],
+                "description": "Returns all user notes"
+            },
+            "post": {
+                "tags": [
+                    "note"
+                ],
+                "summary": "",
+                "operationId": "post-api-v1-note",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "user_id": 42,
+                                            "topic": "Test topi",
+                                            "content": "Test content lorem",
+                                            "updated_at": "2023-11-10T03:53:58.000000Z",
+                                            "created_at": "2023-11-10T03:53:58.000000Z",
+                                            "id": 75
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Create new user Note",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "topic",
+                        "description": "note topic",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "content",
+                        "description": "note content",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/note/{id}": {
+            "get": {
+                "summary": "",
+                "tags": [
+                    "note"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 75,
+                                            "user_id": 42,
+                                            "topic": "Test topi",
+                                            "content": "Test content lorem",
+                                            "created_at": "2023-11-10T03:53:58.000000Z",
+                                            "updated_at": "2023-11-10T03:53:58.000000Z"
+                                        }
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You cant view this note"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "Note doesnt exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "get-api-v1-note-id",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ],
+                "description": "Returns user note by id"
+            },
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "put": {
+                "tags": [
+                    "note"
+                ],
+                "summary": "",
+                "operationId": "put-api-v1-note-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 75,
+                                            "user_id": 42,
+                                            "topic": "testr1234",
+                                            "content": "lorem ipsum updated",
+                                            "created_at": "2023-11-10T03:53:58.000000Z",
+                                            "updated_at": "2023-11-10T04:04:43.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You cannot update this note"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Update existing note by id or create new",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "topic",
+                        "description": "new topic"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "content",
+                        "description": "new content"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "note"
+                ],
+                "summary": "",
+                "operationId": "delete-api-v1-note-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 75,
+                                            "user_id": 42,
+                                            "topic": "testr1234",
+                                            "content": "lorem ipsum updated",
+                                            "created_at": "2023-11-10T03:53:58.000000Z",
+                                            "updated_at": "2023-11-10T04:04:43.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "You cannot update this note"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "Note doesnt exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "destroys note by id",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "required": true,
+                        "name": "Authorization",
+                        "description": "Bearer token"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/note": {
+            "get": {
+                "summary": "Your GET endpoint",
+                "tags": [
+                    "admin"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "user_id": {
+                                                "type": "integer"
+                                            },
+                                            "topic": {
+                                                "type": "string"
+                                            },
+                                            "content": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": [
+                                            {
+                                                "id": 3,
+                                                "user_id": 1,
+                                                "topic": "The long.",
+                                                "content": "This time there were a Duck and a long tail, certainly,' said Alice, who felt very glad to do with.",
+                                                "created_at": "2023-11-08T04:12:19.000000Z",
+                                                "updated_at": "2023-11-08T04:12:19.000000Z"
+                                            },
+                                            {
+                                                "id": 4,
+                                                "user_id": 36,
+                                                "topic": "King was.",
+                                                "content": "Alice, a little way forwards each time and a large kitchen, which was immediately suppressed by.",
+                                                "created_at": "2023-11-08T04:12:19.000000Z",
+                                                "updated_at": "2023-11-08T04:12:19.000000Z"
+                                            },
+                                            {
+                                                "id": 5,
+                                                "user_id": 35,
+                                                "topic": "Said his.",
+                                                "content": "These words were followed by a row of lamps hanging from the Queen had ordered. They very soon.",
+                                                "created_at": "2023-11-08T04:12:19.000000Z",
+                                                "updated_at": "2023-11-08T04:12:19.000000Z"
+                                            },
+                                            {
+                                                "id": 47,
+                                                "user_id": 33,
+                                                "topic": "Mr. Lavon Kessler MD",
+                                                "content": "krajcik.eloise@example.com",
+                                                "created_at": "2023-11-08T10:38:21.000000Z",
+                                                "updated_at": "2023-11-08T10:38:21.000000Z"
+                                            },
+                                            {
+                                                "id": 8,
+                                                "user_id": 1,
+                                                "topic": "test topic test",
+                                                "content": "test content",
+                                                "created_at": "2023-11-08T05:39:31.000000Z",
+                                                "updated_at": "2023-11-08T06:11:33.000000Z"
+                                            },
+                                            {
+                                                "id": 50,
+                                                "user_id": 83,
+                                                "topic": "admin topic",
+                                                "content": "admin contentl;'",
+                                                "created_at": "2023-11-08T10:55:39.000000Z",
+                                                "updated_at": "2023-11-08T10:55:39.000000Z"
+                                            },
+                                            {
+                                                "id": 16,
+                                                "user_id": 37,
+                                                "topic": "test topic",
+                                                "content": "test content fgdsfgh5456asgasg",
+                                                "created_at": "2023-11-08T08:26:13.000000Z",
+                                                "updated_at": "2023-11-08T08:26:13.000000Z"
+                                            },
+                                            {
+                                                "id": 17,
+                                                "user_id": 37,
+                                                "topic": "test topic",
+                                                "content": "test content fgdsfgh5456asgasg",
+                                                "created_at": "2023-11-08T08:26:53.000000Z",
+                                                "updated_at": "2023-11-08T08:26:53.000000Z"
+                                            },
+                                            {
+                                                "id": 58,
+                                                "user_id": 42,
+                                                "topic": "sgasg",
+                                                "content": "sasg",
+                                                "created_at": "2023-11-08T10:55:39.000000Z",
+                                                "updated_at": "2023-11-08T10:55:39.000000Z"
+                                            },
+                                            {
+                                                "id": 59,
+                                                "user_id": 42,
+                                                "topic": "gas",
+                                                "content": "gasg",
+                                                "created_at": "2023-11-08T13:08:02.000000Z",
+                                                "updated_at": "2023-11-08T13:08:02.000000Z"
+                                            },
+                                            {
+                                                "id": 60,
+                                                "user_id": 42,
+                                                "topic": "lk;'l",
+                                                "content": ";'l;",
+                                                "created_at": "2023-11-08T13:19:01.000000Z",
+                                                "updated_at": "2023-11-08T13:19:01.000000Z"
+                                            },
+                                            {
+                                                "id": 76,
+                                                "user_id": 42,
+                                                "topic": "Test topi",
+                                                "content": "Test content lorem",
+                                                "created_at": "2023-11-10T03:54:48.000000Z",
+                                                "updated_at": "2023-11-10T03:54:48.000000Z"
+                                            },
+                                            {
+                                                "id": 77,
+                                                "user_id": 42,
+                                                "topic": "Test topi",
+                                                "content": "Test content lorem",
+                                                "created_at": "2023-11-10T03:54:48.000000Z",
+                                                "updated_at": "2023-11-10T03:54:48.000000Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "get-api-v1-admin-note",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "Accept",
+                        "description": "applications/json",
+                        "required": true
+                    }
+                ],
+                "description": "return all users notes for admin"
+            },
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "",
+                "operationId": "post-api-v1-admin-note",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "user_id": 83,
+                                            "topic": "admin topic",
+                                            "content": "admin content",
+                                            "updated_at": "2023-11-10T04:11:16.000000Z",
+                                            "created_at": "2023-11-10T04:11:16.000000Z",
+                                            "id": 78
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "topic",
+                        "description": "new topic",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "content",
+                        "description": "new content",
+                        "required": true
+                    }
+                ],
+                "description": "Create new admin note"
+            }
+        },
+        "/api/v1/admin/note/{id}": {
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "get": {
+                "summary": "Your GET endpoint",
+                "tags": [
+                    "admin"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "note": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer"
+                                                },
+                                                "topic": {
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "string"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "note": {
+                                                "id": 50,
+                                                "user_id": 83,
+                                                "topic": "admin topic",
+                                                "content": "admin contentl;'",
+                                                "created_at": "2023-11-08T10:55:39.000000Z",
+                                                "updated_at": "2023-11-08T10:55:39.000000Z"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "Note doesnt exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "get-api-v1-admin-note-id",
+                "description": "Return any note by id",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "",
+                "operationId": "put-api-v1-admin-note-id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 79,
+                                            "user_id": 83,
+                                            "topic": "admin topic",
+                                            "content": "updated",
+                                            "created_at": "2023-11-10T04:13:46.000000Z",
+                                            "updated_at": "2023-11-10T04:14:33.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Update any note by id or create new",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "topic",
+                        "description": "new topic"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "content",
+                        "description": "new content"
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "",
+                "operationId": "delete-api-v1-admin-note-id",
+                "responses": {
+                    "100": {
+                        "description": "Continue"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 79,
+                                            "user_id": 83,
+                                            "topic": "admin topic",
+                                            "content": "updated",
+                                            "created_at": "2023-11-10T04:13:46.000000Z",
+                                            "updated_at": "2023-11-10T04:14:33.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "Note doesnt exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Destroy any note by id",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        "/api/v1/user/{id}": {
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ],
+            "get": {
+                "summary": "Your GET endpoint",
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "email_verified_at": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "id": 42,
+                                            "name": "Tressa Cremin MD",
+                                            "email": "ykihn@example.net",
+                                            "email_verified_at": "2023-11-08T04:12:19.000000Z",
+                                            "created_at": "2023-11-08T04:12:19.000000Z",
+                                            "updated_at": "2023-11-08T04:12:19.000000Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "x-examples": {
+                                        "Example 1": {
+                                            "message": "Something wrong with user_id"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "get-api-v1-user-id",
+                "description": "Get user info by id",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer token",
+                        "required": true
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "header",
+                        "name": "Accept",
+                        "description": "application/json",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    }
+}

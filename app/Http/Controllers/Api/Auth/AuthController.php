@@ -13,19 +13,27 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(RegisterFormRequest $request)
+    /**
+     * @param RegisterFormRequest $request
+     * @return JsonResponse
+     */
+    public function register(RegisterFormRequest $request): JsonResponse
     {
-        $user = User::create(array_merge(
+        User::create(array_merge(
             $request->only('name', 'email'),
             ['password' => bcrypt($request->password)],
         ));
 
         return response()->json([
             'message' => 'You were successfully registered. Use your email and password to sign in.'
-        ], 200);
+        ]);
     }
 
-    public function login(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
@@ -65,6 +73,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'You are successfully logged out',
-        ], 204);
+        ]);
     }
 }

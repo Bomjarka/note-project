@@ -28,7 +28,7 @@ class NoteController extends Controller
         $note = Note::find($id);
         if (!$note) {
             return response()->json([
-                'message' => 'Note not exists',
+                'message' => 'Note doesnt exist',
             ], 404);
         }
 
@@ -67,7 +67,7 @@ class NoteController extends Controller
         }
 
         return response()->json([
-            'message' => 'Note not exists',
+            'message' => 'Note doesnt exist',
         ], 404);
     }
 }

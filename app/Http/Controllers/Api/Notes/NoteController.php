@@ -25,6 +25,11 @@ class NoteController extends Controller
      */
     public function show(int $id): JsonResponse|Note
     {
+        if (!Note::find($id)) {
+            return response()->json([
+                'message' => 'Note doesnt exist',
+            ], 404);
+        }
         $userNote =  Auth::user()->notes()->whereId($id)->first();
         if (!$userNote) {
             return response()->json([
@@ -73,7 +78,7 @@ class NoteController extends Controller
        }
 
         return response()->json([
-            'message' => 'Note not exists',
+            'message' => 'Note doesnt exist',
         ], 404);
     }
 }
