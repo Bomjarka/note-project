@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/swagger', function () {
+    if (env('APP_ENV') !== 'local') {
+        return redirect('/');
+    }
 
-Route::view('/swagger', 'swagger');
+    return view('swagger');
+});
+//Route::view('/swagger', 'swagger');
 
 Route::get('/{vue_capture?}', function() {
     return view('welcome');
