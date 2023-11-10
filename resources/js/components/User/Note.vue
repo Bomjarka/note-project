@@ -12,8 +12,13 @@
                     <div class="card-body">
                         <p class="card-text">Content: {{ note.content }}</p>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-flex justify-content-between">
                         <small class="text-muted">Created: {{ new Date(note.created_at).toDateString() }}</small>
+                        <UpdateNoteModal :visible="false" variant="outline-secondary"
+                                         :editable_note="note"
+                                         action="Edit note"
+                                         method-name="govno">
+                        </UpdateNoteModal>
                     </div>
                 </div>
             </div>
@@ -23,8 +28,10 @@
 <script>
 
 import axios from "axios";
+import UpdateNoteModal from "../UpdateNoteModal.vue";
 
 export default {
+    components: {UpdateNoteModal},
     data() {
         return {
             api_token: localStorage.getItem('TOKEN_FROM_API'),
