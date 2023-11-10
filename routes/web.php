@@ -21,7 +21,6 @@ Route::get('/swagger', function () {
 
     return view('swagger');
 });
-//Route::view('/swagger', 'swagger');
 
 Route::get('/{vue_capture?}', function() {
     return view('welcome');
