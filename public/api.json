@@ -22,10 +22,6 @@
         {
             "name": "admin",
             "description": "admin api"
-        },
-        {
-            "name": "user",
-            "description": "user methods"
         }
     ],
     "paths": {
@@ -1087,40 +1083,33 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "note": {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer"
-                                                },
-                                                "user_id": {
-                                                    "type": "integer"
-                                                },
-                                                "topic": {
-                                                    "type": "string"
-                                                },
-                                                "content": {
-                                                    "type": "string"
-                                                },
-                                                "created_at": {
-                                                    "type": "string"
-                                                },
-                                                "updated_at": {
-                                                    "type": "string"
-                                                }
-                                            }
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "user_id": {
+                                            "type": "integer"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        },
+                                        "content": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
                                         }
                                     },
                                     "x-examples": {
                                         "Example 1": {
-                                            "note": {
-                                                "id": 50,
-                                                "user_id": 83,
-                                                "topic": "admin topic",
-                                                "content": "admin contentl;'",
-                                                "created_at": "2023-11-08T10:55:39.000000Z",
-                                                "updated_at": "2023-11-08T10:55:39.000000Z"
-                                            }
+                                            "id": 50,
+                                            "user_id": 83,
+                                            "topic": "admin topic",
+                                            "content": "admin contentl;'",
+                                            "created_at": "2023-11-08T10:55:39.000000Z",
+                                            "updated_at": "2023-11-08T10:55:39.000000Z"
                                         }
                                     }
                                 }
@@ -1364,9 +1353,7 @@
             ],
             "get": {
                 "summary": "Your GET endpoint",
-                "tags": [
-                    "user"
-                ],
+                "tags": [],
                 "responses": {
                     "200": {
                         "description": "OK",

@@ -32,7 +32,7 @@ class NoteController extends Controller
             ], 404);
         }
 
-        return response()->json(['note' => $note]);
+        return response()->json($note);
     }
 
     /**
