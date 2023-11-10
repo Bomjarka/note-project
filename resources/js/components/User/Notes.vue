@@ -5,9 +5,11 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h5>ToDo Lists</h5>
-                        <!--                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"-->
-                        <!--                                data-bs-target="#createListModal">Create New Note-->
-                        <!--                        </button>-->
+                        <CreateNoteModal :visible="false" variant="outline-secondary" action="New note">
+                            <template>
+                                <button type="button" class="btn btn-primary" >Save changes</button>
+                            </template>
+                        </CreateNoteModal>
                     </div>
                     <div class="card-body">
                         <h2 v-if="isNotesEmpty()">No notes</h2>
@@ -35,7 +37,10 @@
 </template>
 <script>
 import axios from "axios";
+import CreateNoteModal from "../CreateNoteModal.vue";
+
 export default {
+    components: {CreateNoteModal},
     data() {
         return {
             api_token: localStorage.getItem('TOKEN_FROM_API'),
@@ -62,6 +67,15 @@ export default {
     methods: {
         isNotesEmpty() {
             return this.notes.length === 0;
+        },
+        showModal() {
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
+        },
+        govno() {
+            console.log('GOVNO FROM NOTES PAGE');
         }
     }
 }
